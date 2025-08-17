@@ -1,11 +1,21 @@
-import express from 'express';
+import express, { Router } from 'express';
+import cors from 'cors';
+
 
 const app = express();
 const port = 3000;
+// const router = express.Router();
+import authRouter from './routes/authRoutes.js';
+
+app.use(express.json());
+app.use(cors());
+
 
 app.get('/', (req, res) => {
   res.send('Hello, TypeScript !');
 });
+
+app.use("/api/v1/auth", authRouter);
 
 console.log("hello typescript!");
 app.listen(port, () => {
