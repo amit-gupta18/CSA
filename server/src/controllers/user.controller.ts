@@ -50,6 +50,7 @@ export const registerUser = async (req: Request, res: Response) => {
 export const onboardingUser = async (req: Request, res: Response) => {
   try {
     const userId = (req as any).userId; 
+    // console.log("user id is : " , userId);
     const {
       name,
       dob,
@@ -64,14 +65,15 @@ export const onboardingUser = async (req: Request, res: Response) => {
 
 
     const user = await prisma.user.findUnique({ where: { id: userId } });
+    console.log("user is : " , user);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    if (user.educationLevel) {
-      return res.status(400).json({ message: "User already onboarded" });
-    }
+    // if (user.educationLevel) {
+    //   return res.status(400).json({ message: "User already onboarded" });
+    // }
 
     const updatedUser = await prisma.user.update({
       where: { id: userId },
