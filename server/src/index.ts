@@ -3,7 +3,7 @@ import cors from 'cors';
 
 
 const app = express();
-const port = 3000;
+const port = 8000;
 // const router = express.Router();
 import authRouter from './routes/authRoutes.js';
 
@@ -16,6 +16,7 @@ app.get('/', (req, res) => {
 });
 
 app.use("/api/v1/auth", authRouter);
+
 
 console.log("hello typescript!");
 app.listen(port, () => {
