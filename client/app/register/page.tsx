@@ -14,7 +14,7 @@ function RegisterPage() {
         password: "",
         educationLevel: "SCHOOL",
     });
-
+    
     // handle input changes
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({
