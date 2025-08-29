@@ -42,6 +42,7 @@ export default function OnboardingPage() {
       });
       console.log("Onboarding success:", res.data);
       alert("Onboarding completed!");
+      router.push("/dashboard");
     } catch (err: any) {
       console.error("Error submitting onboarding:", err.response?.data || err);
       alert("Failed to submit onboarding");
