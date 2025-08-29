@@ -2,7 +2,5 @@
   "watch": ["src"],
   "ext": "ts",
   "ignore": ["src/**/*.spec.ts"],
-  "execMap": {
-    "ts": "node --no-warnings=ExperimentalWarning --loader ts-node/esm"
-  }
+  "exec": "node --loader ts-node/esm ./src/index.ts"
 }

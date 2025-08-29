@@ -7,19 +7,16 @@ import { useRouter } from "next/navigation";
 export default function OnboardingPage() {
   const [formData, setFormData] = useState({
     name: "",
-    dob: "",
-    educationLevel: "",
-    grade: "",
-    board: "",
+    educationlevel: "",
     branch: "",
     year: "",
-    cgpa: "",
-    college: "",
+    cgpa: ""
   });
 
   const router = useRouter();
 
   const token = localStorage.getItem('token');
+  // console.log("first token is : " , token);
   if(!token){
     router.push('/register');
   }
@@ -50,106 +47,108 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200">
       <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-md w-full max-w-md space-y-4"
+      onSubmit={handleSubmit}
+      className="bg-white p-8 rounded-xl shadow-lg w-full max-w-lg space-y-6"
       >
-        <h2 className="text-2xl font-bold text-center">Onboarding</h2>
+      <h2 className="text-3xl font-extrabold text-center text-indigo-700 mb-2">Onboarding</h2>
+      <p className="text-center text-gray-500 mb-4">Please fill in your details to continue</p>
 
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="name">
+        Full Name
+        </label>
         <input
-          type="text"
-          name="name"
-          placeholder="Full Name"
-          value={formData.name}
-          onChange={handleChange}
-          className="w-full border px-3 py-2 rounded"
+        id="name"
+        type="text"
+        name="name"
+        placeholder="Enter your full name"
+        value={formData.name}
+        onChange={handleChange}
+        className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        required
         />
+      </div>
 
-        <input
-          type="date"
-          name="dob"
-          value={formData.dob}
-          onChange={handleChange}
-          className="w-full border px-3 py-2 rounded"
-        />
-        <div>Select Education Level</div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="educationlevel">
+        Education Level
+        </label>
         <select
-          name="educationLevel"
-          value={formData.educationLevel}
-          onChange={handleChange}
-          className="w-full border px-3 py-2 rounded"
+        id="educationlevel"
+        name="educationlevel"
+        value={formData.educationlevel}
+        onChange={handleChange}
+        className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        required
         >
-          <option value="SCHOOL">SCHOOL</option>
-          <option value="HIGHER_EDUCATION">HIGHER EDUCATION</option>
+        <option value="">Select</option>
+        <option value="SCHOOL">School</option>
+        <option value="HIGHER_EDUCATION">Higher Education</option>
         </select>
+      </div>
 
-        {/* Conditionally render fields based on education level */}
-        {formData.educationLevel === "SCHOOL" && (
-          <>
-            <input
-              type="text"
-              name="grade"
-              placeholder="Grade"
-              value={formData.grade}
-              onChange={handleChange}
-              className="w-full border px-3 py-2 rounded"
-            />
-            <input
-              type="text"
-              name="board"
-              placeholder="Board"
-              value={formData.board}
-              onChange={handleChange}
-              className="w-full border px-3 py-2 rounded"
-            />
-          </>
-        )}
+      {formData.educationlevel === "HIGHER_EDUCATION" && (
+        <>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="branch">
+          Branch
+          </label>
+          <input
+          id="branch"
+          type="text"
+          name="branch"
+          placeholder="Branch"
+          value={formData.branch}
+          onChange={handleChange}
+          className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          required
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="year">
+          Year
+          </label>
+          <input
+          id="year"
+          type="number"
+          name="year"
+          placeholder="Year"
+          value={formData.year}
+          onChange={handleChange}
+          className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          required
+          min={1}
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="cgpa">
+          CGPA
+          </label>
+          <input
+          id="cgpa"
+          type="number"
+          step="0.1"
+          name="cgpa"
+          placeholder="CGPA"
+          value={formData.cgpa}
+          onChange={handleChange}
+          className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          required
+          min={0}
+          max={10}
+          />
+        </div>
+        </>
+      )}
 
-        {formData.educationLevel === "HIGHER_EDUCATION" && (
-          <>
-            <input
-              type="text"
-              name="branch"
-              placeholder="Branch"
-              value={formData.branch}
-              onChange={handleChange}
-              className="w-full border px-3 py-2 rounded"
-            />
-            <input
-              type="number"
-              name="year"
-              placeholder="Year"
-              value={formData.year}
-              onChange={handleChange}
-              className="w-full border px-3 py-2 rounded"
-            />
-            <input
-              type="number"
-              step="0.1"
-              name="cgpa"
-              placeholder="CGPA"
-              value={formData.cgpa}
-              onChange={handleChange}
-              className="w-full border px-3 py-2 rounded"
-            />
-            <input
-              type="text"
-              name="college"
-              placeholder="College"
-              value={formData.college}
-              onChange={handleChange}
-              className="w-full border px-3 py-2 rounded"
-            />
-          </>
-        )}
-
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-        >
-          Submit
-        </button>
+      <button
+        type="submit"
+        className="w-full bg-indigo-600 text-white py-2 rounded-lg font-semibold hover:bg-indigo-700 transition"
+      >
+        Submit
+      </button>
       </form>
     </div>
   );
