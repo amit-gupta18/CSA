@@ -8,6 +8,7 @@ const app = express();
 const port = 8000;
 // const router = express.Router();
 import authRouter from './routes/authRoutes.js';
+import userRouter from './routes/userRoutes.js';
 
 app.use(express.json());
 app.use(cors());
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/user", userRouter);
 
 
 console.log("hello typescript!");
