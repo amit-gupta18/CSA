@@ -15,11 +15,11 @@ export default function OnboardingPage() {
 
   const router = useRouter();
 
-  const token = localStorage.getItem('token');
-  // console.log("first token is : " , token);
-  if(!token){
-    router.push('/register');
-  }
+  // const token = localStorage.getItem('token');
+  // // console.log("first token is : " , token);
+  // if(!token){
+  //   router.push('/register');
+  // }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -31,11 +31,9 @@ export default function OnboardingPage() {
     e.preventDefault();
 
     try {
-      const token = localStorage.getItem("token");
-      console.log("token in the local storage : ", token);
       console.log("data passing in to the backedn : ", formData);
       const res = await axios.post("http://localhost:8000/api/v1/auth/onboard", formData, {
-        headers: { Authorization: `Bearer ${token}` }
+        withCredentials: true
       });
       console.log("Onboarding success:", res.data);
       alert("Onboarding completed!");

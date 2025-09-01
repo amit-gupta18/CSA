@@ -29,8 +29,9 @@ export default function LoginPage() {
     try {
       const res = await axios.post("http://localhost:8000/api/v1/auth/login", formData);
 
-      // store JWT
-      localStorage.setItem("token", res.data.token);
+      // store JWT in cookies
+      document.cookie = `token=${res.data.token}; path=/; max-age=3600`; // 1 hour expiry
+      // localStorage.setItem("token", res.data.token);
 
       // redirect after login
       router.push("/dashboard");

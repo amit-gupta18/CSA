@@ -10,8 +10,9 @@ const port = 8000;
 import authRouter from './routes/authRoutes.js';
 import userRouter from './routes/userRoutes.js';
 
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
-app.use(cors());
+
 
 
 app.get('/', (req, res) => {

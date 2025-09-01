@@ -4,7 +4,12 @@ dotenv.config();
 
 export const authMiddleware = (req: any, res: any, next: any) => { 
     console.log("in the auth middleware "); 
-    const token = req.headers.authorization?.split(" ")[1];
+    // const token = req.headers.authorization?.split(" ")[1];
+    // set the token in the cookie 
+
+    const token = req.cookies.token;
+
+
     console.log("token is : " , token);
     if (!token) {
         return res.status(401).json({ error: "Unauthorized" });

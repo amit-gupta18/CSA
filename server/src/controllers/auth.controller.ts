@@ -36,6 +36,8 @@ export const registerUser = async (req: Request, res: Response) => {
       return res.status(500).json({ error: "Internal Server Error" });
     }
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY);
+    // setting up the cookies here
+    res.cookie('token', token, { httpOnly: true, maxAge: 24 * 3600 * 1000 }); 
     return res.status(201).json({ id: user.id, email: user.email, educationLevel: user.educationlevel, token: token });
   } catch (err) {
     console.error(err);
