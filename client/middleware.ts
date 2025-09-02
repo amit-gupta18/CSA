@@ -11,7 +11,6 @@ export async function middleware(request: NextRequest) {
     // If the user is not logged in, redirect to the login page.
 
     if(!token ){
-      console.log("control reached here. ")
         return NextResponse.redirect(new URL('/register', request.url))
     }
 
@@ -20,5 +19,5 @@ export async function middleware(request: NextRequest) {
 }
  
 export const config = {
-  matcher: ["/onboarding/:path*", "/test/:path*" , "/dashboard/:path*"],
+  matcher: ["/onboarding/:path*", "/test/:path*" , "/dashboard/:path*" , "/quiz/:path*"],
 }
