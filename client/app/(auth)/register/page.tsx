@@ -9,6 +9,10 @@ function RegisterPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
 
+    // excess api url form the .env.local
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+
     const [formData, setFormData] = useState({
         email: "",
         password: "",
