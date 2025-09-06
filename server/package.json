@@ -15,6 +15,7 @@
   "esModuleInterop": true,
   "description": "",
   "dependencies": {
+    "@google/genai": "^1.17.0",
     "@prisma/client": "^6.14.0",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
@@ -27,6 +28,7 @@
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.3",
     "@types/node": "^24.3.0",
     "nodemon": "^3.1.10",

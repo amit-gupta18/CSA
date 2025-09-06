@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+
 dotenv.config();
 
 export const authMiddleware = (req: any, res: any, next: any) => { 
@@ -7,10 +8,10 @@ export const authMiddleware = (req: any, res: any, next: any) => {
     // const token = req.headers.authorization?.split(" ")[1];
     // set the token in the cookie 
 
-    const token = req.cookies.token;
+    const token = req.cookies?.token;
 
 
-    console.log("token is : " , token);
+    // console.log("token is : " , token);
     if (!token) {
         return res.status(401).json({ error: "Unauthorized" });
     }
@@ -20,8 +21,8 @@ export const authMiddleware = (req: any, res: any, next: any) => {
     }
 
     jwt.verify(token, process.env.JWT_SECRET_KEY, (err: any, decoded: any) => {
-        console.log("decoded is : " , decoded)
-        console.log("decoded id is : " , decoded.id);
+        // console.log("decoded is : " , decoded)
+        // console.log("decoded id is : " , decoded.id);
         if (err) {
             return res.status(403).json({ error: "Forbidden" });
         }

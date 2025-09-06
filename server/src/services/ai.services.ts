@@ -1,15 +1,9 @@
 import { GoogleGenAI , Type } from "@google/genai";
-const apikey = process.env.GEMINI_API_KEY;
+import dotenv from "dotenv";
+dotenv.config();
 
+const apikey = process.env.GEMINI_API_KEY;
 const ai = new GoogleGenAI({apiKey: apikey!});
-      
-export default async function main() {
-  const response = await ai.models.generateContent({
-    model: "gemini-1.5-flash",
-    contents: "Explain how AI works in a few words",
-  });
-  return response?.text;
-}
 
 export async function generatequestion(interests: string) {
   const schema = {
@@ -72,7 +66,7 @@ export async function generatequestion(interests: string) {
   }`
 
   try {
-    console.log("Prompt:", prompt);
+    // console.log("Prompt:", prompt);
     const result = await ai.models.generateContent({
       model: "gemini-1.5-flash",
       contents: prompt,
