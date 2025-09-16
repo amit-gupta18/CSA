@@ -8,4 +8,4 @@ aiRouter.post("/generate-question", authMiddleware ,  generateQuestion);
 
 
 
-export default aiRouter;
+export default aiRouter;    

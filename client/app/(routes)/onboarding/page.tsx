@@ -14,6 +14,7 @@ export default function OnboardingPage() {
   });
 
   const router = useRouter();
+  const baseurl = process.env.NEXT_PUBLIC_API_URL;
 
   // const token = localStorage.getItem('token');
   // // console.log("first token is : " , token);
@@ -31,8 +32,8 @@ export default function OnboardingPage() {
     e.preventDefault();
 
     try {
-      console.log("data passing in to the backedn : ", formData);
-      const res = await axios.post("http://localhost:8000/api/v1/auth/onboard", formData, {
+      console.log("data passing in to the backend : ", formData);
+      const res = await axios.post(`${baseurl}/api/v1/auth/onboard`, formData, {
         withCredentials: true
       });
       console.log("Onboarding success:", res.data);

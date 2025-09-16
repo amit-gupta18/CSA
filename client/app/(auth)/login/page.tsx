@@ -8,6 +8,7 @@ import Link from "next/link"
 export default function LoginPage() {
   const router = useRouter();
 
+  const baseurl = process.env.NEXT_PUBLIC_API_URL;
 
   const [formData, setFormData] = useState({
     email: "",
@@ -29,7 +30,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:8000/api/v1/auth/login", formData);
+      const res = await axios.post(`${baseurl}/api/v1/auth/login`, formData);
 
       // store JWT in cookies
       document.cookie = `token=${res.data.token}; path=/; max-age=3600`; // 1 hour expiry

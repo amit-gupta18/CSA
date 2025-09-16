@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,47 +8,42 @@ datasource db {
 }
 
 model User {
-  id               String              @id @default(cuid())
-  email            String              @unique
-  password         String
-  educationlevel   EducationLevel      
-  name             String?
-  branch           String?
-  year             Int?
-  cgpa             Decimal?            @db.Decimal(3, 2)
-  skills           SkillOnUser[]
-  goals            Goal[]
-  projects         Project[]
-  subjects         SubjectOnUser[]
-  tasks            Task[]
-  streaks          Streak[]
-  achievements     AchievementOnUser[]
-  preferences      Json?
-  createdAt        DateTime            @default(now())
-}
-
-enum EducationLevel {
-  SCHOOL
-  HIGHER_EDUCATION
+  id             String              @id @default(cuid())
+  email          String              @unique
+  password       String
+  educationlevel EducationLevel
+  name           String?
+  branch         String?
+  year           Int?
+  cgpa           Decimal?            @db.Decimal(3, 2)
+  preferences    Json?
+  createdAt      DateTime            @default(now())
+  achievements   AchievementOnUser[]
+  goals          Goal[]
+  projects       Project[]
+  skills         SkillOnUser[]
+  streaks        Streak[]
+  subjects       SubjectOnUser[]
+  tasks          Task[]
 }
 
 model Skill {
   id         String     @id @default(cuid())
   name       String     @unique
-  category   String // e.g., "DSA", "Web-Frontend", "Cloud"
-  levelOrder Int // for roadmap tiering
-  parents    Skill[]    @relation("SkillHierarchy")
-  children   Skill[]    @relation("SkillHierarchy")
-  resources  Resource[]
+  category   String
+  levelOrder Int
+  resources  Resource[] @relation("ResourceToSkill")
+  Skill_A    Skill[]    @relation("SkillHierarchy")
+  Skill_B    Skill[]    @relation("SkillHierarchy")
 }
 
 model SkillOnUser {
   id         String   @id @default(cuid())
   userId     String
   skillId    String
-  level      Int // 0-5 (Novice→Expert)
-  confidence Int // 0-100 self-reported
-  evidence   Json? // links, submissions, quiz scores
+  level      Int
+  confidence Int
+  evidence   Json?
   updatedAt  DateTime @default(now())
   User       User     @relation(fields: [userId], references: [id])
 
@@ -64,8 +53,8 @@ model SkillOnUser {
 model Goal {
   id        String   @id @default(cuid())
   userId    String
-  type      String // "internship", "placement", "higher-edu"
-  target    Json // e.g., {role: "SDE", companies:["GSoC","MAANG"], deadline: "2025-12-31"}
+  type      String
+  target    Json
   createdAt DateTime @default(now())
   User      User     @relation(fields: [userId], references: [id])
 }
@@ -81,8 +70,8 @@ model SubjectOnUser {
   id        String  @id @default(cuid())
   userId    String
   subjectId String
-  progress  Int // 0-100
-  grade     String? // e.g., A/B/C
+  progress  Int
+  grade     String?
   User      User    @relation(fields: [userId], references: [id])
 }
 
@@ -93,7 +82,7 @@ model Project {
   summary    String?
   repoUrl    String?
   tags       String[]
-  progress   Int // 0-100
+  progress   Int
   milestones Milestone[]
   User       User        @relation(fields: [userId], references: [id])
 }
@@ -103,7 +92,7 @@ model Milestone {
   projectId String
   title     String
   dueDate   DateTime?
-  status    String // todo, doing, done
+  status    String
   Project   Project   @relation(fields: [projectId], references: [id])
 }
 
@@ -115,8 +104,8 @@ model Task {
   subjectId   String?
   projectId   String?
   dueDate     DateTime?
-  status      String // todo, doing, done
-  priority    Int // 1-5
+  status      String
+  priority    Int
   User        User      @relation(fields: [userId], references: [id])
 }
 
@@ -124,24 +113,24 @@ model Resource {
   id     String   @id @default(cuid())
   title  String
   url    String
-  type   String // video, article, course, question-set
+  type   String
   tags   String[]
-  skills Skill[]
-  rating Float? // community
+  rating Float?
+  skills Skill[]  @relation("ResourceToSkill")
 }
 
 model Streak {
   id        String   @id @default(cuid())
   userId    String
-  kind      String // dsa, subject, project, habit
-  days      Int // continuous
+  kind      String
+  days      Int
   updatedAt DateTime @default(now())
   User      User     @relation(fields: [userId], references: [id])
 }
 
 model Achievement {
   id     String @id @default(cuid())
-  code   String @unique // e.g., "DSA_30_STREAK"
+  code   String @unique
   name   String
   points Int
 }
@@ -152,4 +141,9 @@ model AchievementOnUser {
   achievementId String
   earnedAt      DateTime @default(now())
   User          User     @relation(fields: [userId], references: [id])
+}
+
+enum EducationLevel {
+  SCHOOL
+  HIGHER_EDUCATION
 }

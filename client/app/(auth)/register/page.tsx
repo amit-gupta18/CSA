@@ -10,7 +10,7 @@ function RegisterPage() {
     const [loading, setLoading] = useState(false);
 
     // excess api url form the .env.local
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const baseurl = process.env.NEXT_PUBLIC_API_URL;
 
 
     const [formData, setFormData] = useState({
@@ -35,7 +35,7 @@ function RegisterPage() {
             setLoading(true); // set loading state
             // pass the form data in the body of the request
             console.log("Form data being sent:", formData);
-            const res = await axios.post("http://localhost:8000/api/v1/auth/register", formData);
+            const res = await axios.post(`${baseurl}/api/v1/auth/register`, formData);
             console.log("res is : ", res);
             setLoading(false);
             const token = res.data.token;
