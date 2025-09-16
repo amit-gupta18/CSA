@@ -29,16 +29,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* <Navbar /> */}
         <div className="flex h-screen">
-          {/* Sidebar on the left */}
-          <Sidebar />
-
-          {/* Main content on the right */}
-          <main className="flex-1 overflow-y-auto p-6">
+          {/* Sidebar with fixed width */}
+          <div className="w-64">
+            <Sidebar />
+          </div>
+          {/* Main content takes remaining space */}
+          <main className="flex-1 overflow-y-auto p-6 border-2">
             {children}
           </main>
         </div>
+
       </body>
     </html>
   );
