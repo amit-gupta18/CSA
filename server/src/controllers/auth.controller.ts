@@ -3,6 +3,7 @@ import prisma from "../db.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv';
+import { error } from "console";
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ export const registerUser = async (req: Request, res: Response) => {
     });
 
 
+
     // generate the jwt token over here
     if (!process.env.JWT_SECRET_KEY) {
       return res.status(500).json({ error: "Internal Server Error" });
@@ -41,7 +43,7 @@ export const registerUser = async (req: Request, res: Response) => {
     return res.status(201).json({ id: user.id, email: user.email, educationLevel: user.educationlevel, token: token });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "Something went wrong" });
+    return res.status(500).json({ message: "Something went wrong" , error: err});
   }
 };
 
